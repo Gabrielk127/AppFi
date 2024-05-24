@@ -3,6 +3,7 @@ export const Colors = {
   SECUNDARY: "#F8F8F8",
 
   PRIMARY_TEXT: "#3A3A3A",
+  PRIMARY_BACK: "#424242",
 
   PURPLE_100: "#bd82ff",
   PURPLE_200: "#9b68f8",
