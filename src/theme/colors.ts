@@ -5,9 +5,15 @@ export const Colors = {
   PRIMARY_TEXT: "#3A3A3A",
   PRIMARY_BACK: "#424242",
 
+  PURPLE_50: "#C66CFC",
   PURPLE_100: "#bd82ff",
   PURPLE_200: "#9b68f8",
   PURPLE_300: "#7a4ef2",
   PURPLE_400: "#5834eb",
   PURPLE_500: "#371ae5",
+  PURPLE_600: "rgba(130, 71, 255, 0.20)",
+  PURPLE_700: "#6200EE",
+  PURPLE_BACKGROUND: "#120041",
+
+  ORANGE_100: "#FB9F6C",
 };

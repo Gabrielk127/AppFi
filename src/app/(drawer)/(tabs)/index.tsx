@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Text>Página Home</Text>
-      <Link href={"/calendar"}>
+      <Link href={"/oneScreen"}>
         <Avatar source={{ uri: "https://github.com/gabrielk127.png" }} />
       </Link>
       <MenuButton />
