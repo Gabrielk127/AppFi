@@ -7,8 +7,8 @@ type AvatarProps = ImageProps & {
 
 export function Avatar({ size = "medium", style, ...rest }: AvatarProps) {
   const baseStyle: ImageStyle = {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 25,
     overflow: "hidden",
   };
