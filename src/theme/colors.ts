@@ -1,8 +1,9 @@
 export const Colors = {
   PRIMARY: "#FFFFFF",
+  PRIMARY_BLACK: "#000",
   SECUNDARY: "#F8F8F8",
 
-  PRIMARY_TEXT: "#3A3A3A",
+  PRIMARY_TEXT: "#9A9A9A",
   PRIMARY_BACK: "#424242",
 
   PURPLE_50: "#C66CFC",

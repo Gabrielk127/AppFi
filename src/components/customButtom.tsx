@@ -7,13 +7,17 @@ import {
   ViewStyle,
   TextStyle,
 } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 interface CustomButtonProps {
-  title: string;
+  title?: string;
   onPress?: () => void;
   buttonStyle?: ViewStyle;
   textStyle?: TextStyle;
   disabled?: boolean;
+  icon?: keyof typeof MaterialIcons.glyphMap;
+  iconColor?: string;
+  iconSize?: number;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -22,6 +26,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   buttonStyle,
   textStyle,
   disabled = false,
+  icon,
+  iconColor = theme.Colors.PRIMARY_TEXT,
+  iconSize = 24,
 }) => {
   return (
     <TouchableOpacity
@@ -29,6 +36,13 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       onPress={onPress}
       disabled={disabled}
     >
+      <MaterialIcons
+        name={icon}
+        size={iconSize}
+        color={iconColor}
+        style={styles.icon}
+      />
+
       <Text style={[styles.text, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
@@ -36,6 +50,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
+    flexDirection: "row",
     backgroundColor: theme.Colors.PURPLE_700,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -51,6 +66,9 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     fontFamily: theme.fontFamily.subtitle,
+  },
+  icon: {
+    justifyContent: "center",
   },
 });
 

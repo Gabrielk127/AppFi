@@ -4,6 +4,7 @@ import { Slot } from "expo-router";
 
 import {
   useFonts,
+  LexendDeca_200ExtraLight,
   LexendDeca_400Regular,
   LexendDeca_500Medium,
   LexendDeca_700Bold,
@@ -12,6 +13,7 @@ import { Loading } from "@/components/loading";
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
+    LexendDeca_200ExtraLight,
     LexendDeca_400Regular,
     LexendDeca_500Medium,
     LexendDeca_700Bold,

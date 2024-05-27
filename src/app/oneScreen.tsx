@@ -11,7 +11,7 @@ import { MotiView } from "moti";
 
 import { Link } from "expo-router";
 
-export default function LoginScreen() {
+export default function OneScreen() {
   const dimensions = useWindowDimensions();
   return (
     <View style={styles.contentStyle}>
@@ -110,14 +110,14 @@ export default function LoginScreen() {
       <View>
         <Text style={styles.titleStyle}>Organize sua vida financeira</Text>
         <View style={styles.contentButtonStyle}>
-          <Link href={"(drawer)/"} asChild>
+          <Link href={"registerScreen"} asChild>
             <CustomButton
               title="Cadastrar-se"
               buttonStyle={styles.buttonStyle}
               textStyle={styles.buttonTextStyle}
             />
           </Link>
-          <Link href={"(drawer)/"} asChild>
+          <Link href={"loginScreen"} asChild>
             <CustomButton
               title="Já tenho conta"
               buttonStyle={styles.buttonStyleLogin}
