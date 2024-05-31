@@ -1,7 +1,7 @@
 import { StyleSheet, View, Image, ScrollView, Text } from "react-native";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { Colors } from "@/theme/colors";
-import { DrawerButton } from "@/components/drawer-button";
+import { DrawerButton } from "@/components/drawerButton";
 import { CustomOptions } from "@/types/navigation";
 import { theme } from "@/theme";
 import { Avatar } from "./avatar";

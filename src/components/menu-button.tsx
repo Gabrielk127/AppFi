@@ -10,7 +10,7 @@ export function MenuButton() {
 
   return (
     <Pressable onPress={toggleMenu}>
-      <MaterialIcons name="menu" size={22} color={Colors.PURPLE_500} />
+      <MaterialIcons name="menu" size={30} color={Colors.PRIMARY} />
     </Pressable>
   );
 }

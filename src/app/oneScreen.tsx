@@ -37,7 +37,7 @@ export default function OneScreen() {
         }}
       >
         <Image
-          source={require("@/assets/iphone.png")}
+          source={require("@/assets/iphoneOneScreen/iphone.png")}
           style={styles.iphoneStyle}
         />
       </MotiView>
@@ -60,7 +60,10 @@ export default function OneScreen() {
           },
         }}
       >
-        <Image source={require("@/assets/card.png")} style={styles.cardStyle} />
+        <Image
+          source={require("@/assets/iphoneOneScreen/card.png")}
+          style={styles.cardStyle}
+        />
       </MotiView>
 
       <MotiView
@@ -80,7 +83,10 @@ export default function OneScreen() {
           repeatReverse: true,
         }}
       >
-        <Image source={require("@/assets/coin.png")} style={styles.coinStyle} />
+        <Image
+          source={require("@/assets/iphoneOneScreen/coin.png")}
+          style={styles.coinStyle}
+        />
       </MotiView>
       <MotiView
         style={{ zIndex: 3 }}
@@ -98,12 +104,12 @@ export default function OneScreen() {
         }}
       >
         <Image
-          source={require("@/assets/card2.png")}
+          source={require("@/assets/iphoneOneScreen/card2.png")}
           style={styles.card2Style}
         />
       </MotiView>
       <Image
-        source={require("@/assets/bottom.png")}
+        source={require("@/assets/iphoneOneScreen/bottom.png")}
         style={styles.bottomStyle}
       />
 

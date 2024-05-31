@@ -5,7 +5,6 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import { FontAwesome6 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "@/theme/colors";
 import { theme } from "@/theme";
