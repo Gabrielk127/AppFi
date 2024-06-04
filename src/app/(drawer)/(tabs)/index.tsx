@@ -20,11 +20,7 @@ export default function Home() {
   const balance = String(revenueNumber - expenseNumber);
 
   return (
-    <ScrollView
-      style={styles.container}
-      stickyHeaderIndices={[]}
-      contentContainerStyle={{}}
-    >
+    <ScrollView style={styles.container}>
       <LinearGradient
         style={styles.gradient}
         colors={[theme.Colors.BLUE, theme.Colors.BLACK]}
