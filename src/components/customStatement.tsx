@@ -35,7 +35,7 @@ const CustomStatement: React.FC = () => {
       <View style={styles.viewSeparate} />
       <Text style={styles.categoryStyle}>{item.categoria}</Text>
       <View style={styles.viewSeparate} />
-      <Text style={styles.balanceStyle}>{item.valor.toFixed(2)}</Text>
+      <Text style={styles.balanceStyle}>R${item.valor.toFixed(2)}</Text>
     </View>
   );
 
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     width: 70,
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.GOLDEN,
-    fontSize: 12,
+    fontSize: 10,
   },
 });
 

@@ -39,7 +39,7 @@ export function DrawerButton({
         <MaterialIcons
           name={iconName}
           size={24}
-          color={isFocused ? Colors.PURPLE_500 : Colors.PURPLE_100}
+          color={isFocused ? Colors.GOLDEN : Colors.BLUE}
         />
         <Text
           style={mergeStyles(styles.textStyle, isFocused && styles.textFocused)}
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     marginVertical: 8,
-    shadowColor: "#7F5DF0",
+    shadowColor: theme.Colors.GOLDEN,
     shadowOffset: {
       width: 0,
       height: 10,

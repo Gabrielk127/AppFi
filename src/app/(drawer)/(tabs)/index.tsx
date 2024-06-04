@@ -90,6 +90,7 @@ export default function Home() {
         </View>
       </LinearGradient>
       <View style={styles.contentStyle}>
+        <Text style={styles.goalTitle}>Resumo Objetivos</Text>
         <ScrollView horizontal style={styles.scrollStyle}>
           <GoalsCard
             date="22/12/2024"
@@ -111,6 +112,9 @@ export default function Home() {
           />
         </ScrollView>
         <View>
+          <Text style={[styles.goalTitle, { paddingBottom: 20 }]}>
+            Transações
+          </Text>
           <CustomStatement />
         </View>
       </View>
@@ -193,6 +197,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   scrollStyle: {
-    paddingVertical: 30,
+    paddingBottom: 20,
+  },
+  goalTitle: {
+    paddingTop: 30,
+    paddingLeft: 20,
+    fontFamily: theme.fontFamily.subtitle,
+    color: theme.Colors.GOLDEN,
+    fontSize: 16,
   },
 });

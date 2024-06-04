@@ -41,7 +41,7 @@ export default function TabLayout() {
           width: 60,
           height: 60,
           borderRadius: 35,
-          backgroundColor: theme.Colors.PURPLE_500,
+          backgroundColor: theme.Colors.MATTE_BLUE,
         }}
       >
         {children}
@@ -55,16 +55,14 @@ export default function TabLayout() {
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarActiveTintColor: theme.Colors.PURPLE_500,
-          tabBarInactiveTintColor: theme.Colors.PRIMARY_BACK,
+          tabBarActiveTintColor: theme.Colors.GOLDEN,
+          tabBarInactiveTintColor: theme.Colors.BLUE,
           tabBarStyle: {
             position: "absolute",
-            bottom: 10,
-            left: 10,
-            right: 10,
             backgroundColor: "#fff",
-            borderRadius: 15,
-            height: 70,
+            borderTopLeftRadius: 40,
+            borderTopRightRadius: 40,
+            height: 80,
             ...styles.shadow,
           },
         }}
