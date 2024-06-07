@@ -3,7 +3,7 @@ import CustomProgressBar from "@/components/customProgressBar";
 import { MenuButton } from "@/components/menu-button";
 import { theme } from "@/theme";
 import { Link } from "expo-router";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomBackground from "@/components/customBackground";
@@ -20,7 +20,7 @@ export default function Home() {
   const balance = String(revenueNumber - expenseNumber);
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <LinearGradient
         style={styles.gradient}
         colors={[theme.Colors.BLUE, theme.Colors.BLACK]}
@@ -114,7 +114,7 @@ export default function Home() {
           <CustomStatement />
         </View>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 
