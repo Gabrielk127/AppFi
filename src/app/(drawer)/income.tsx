@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CustomInput from "@/components/customInput";
 import CategoryModal from "@/components/categoryModal";
+import DatePicker from "@/components/datePicker";
 
 interface Category {
   id: number;
@@ -33,38 +33,44 @@ const categories: Category[] = [
 
 export default function Income() {
   const [date, setDate] = useState<Date>(new Date());
-  const [isDatePickerVisible, setDatePickerVisibility] =
-    useState<boolean>(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (selectedDate: Date) => {
-    setDate(selectedDate);
-    hideDatePicker();
-  };
-
   const [titleIncome, setTitleIncome] = useState<string>("");
   const [descIcome, setDescIncome] = useState<string>("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
-  const handleSendData = () => {
-    console.log("Enviando TitleIncome: ", titleIncome);
-    console.log("Enviando DescIncome: ", descIcome);
+  const handleCategoryPress = (categories: Category[]) => {
+    setSelectedCategories(categories);
+    setModalVisible(false);
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
-  );
+  const handleSendData = async () => {
+    const data = {
+      date,
+      titleIncome,
+      descIcome,
+      selectedCategories,
+    };
 
-  const handleCategoryPress = (category: Category) => {
-    setSelectedCategory(category);
-    setModalVisible(false);
+    console.log(data);
+
+    //   try {
+    //     const response = await fetch("https://sua-api.com/endpoint", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(data),
+    //     });
+
+    //     if (response.ok) {
+    //       const responseData = await response.json();
+    //       console.log("Dados enviados com sucesso:", responseData);
+    //     } else {
+    //       console.error("Erro ao enviar os dados:", response.statusText);
+    //     }
+    //   } catch (error) {
+    //     console.error("Erro na requisição:", error);
+    //   }
   };
 
   return (
@@ -113,43 +119,45 @@ export default function Income() {
         </View>
 
         <Text style={styles.labelText}>Data</Text>
-        <TouchableOpacity onPress={showDatePicker}>
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-            display="inline"
-            confirmTextIOS="Confirm"
-            cancelTextIOS="Cancel"
-          />
-          <View style={[styles.dateTextContainer, styles.ContainerBackground]}>
-            <MaterialIcons
-              name="calendar-month"
-              size={28}
-              color={theme.Colors.GRAY}
-            />
-            <Text style={styles.dateText}>{date.toDateString()}</Text>
-          </View>
-        </TouchableOpacity>
-        <Text style={styles.labelText}>Categorias</Text>
+        <DatePicker date={date} onDateChange={setDate} />
 
-        <TouchableOpacity
-          style={[styles.dateTextContainer, styles.ContainerBackground]}
-          onPress={() => setModalVisible(true)}
+        <Text style={styles.labelText}>Categorias</Text>
+        <SafeAreaView></SafeAreaView>
+        <View
+          style={[
+            styles.categoryContainer,
+            styles.containerBackground,
+            { height: 100, padding: 20 },
+          ]}
         >
-          <MaterialIcons name="category" size={28} color={theme.Colors.GRAY} />
-          <Text style={styles.dateText}>
-            {selectedCategory ? selectedCategory.name : "Selecionar Categoria"}
-          </Text>
-        </TouchableOpacity>
+          {selectedCategories.map((category) => (
+            <View key={category.id} style={styles.selectedCategory}>
+              <MaterialIcons
+                name={category.icon}
+                size={24}
+                color={theme.Colors.GOLDEN}
+              />
+              <Text style={styles.categoryText}>{category.name}</Text>
+            </View>
+          ))}
+          <TouchableOpacity
+            style={styles.categoryButton}
+            onPress={() => setModalVisible(true)}
+          >
+            <MaterialIcons name="add" size={24} color={theme.Colors.PRIMARY} />
+          </TouchableOpacity>
+        </View>
 
         <CategoryModal
           categories={categories}
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
-          onSelectCategory={handleCategoryPress}
+          onSelectCategories={handleCategoryPress}
         />
+
+        <TouchableOpacity style={styles.containerSend} onPress={handleSendData}>
+          <Text style={styles.textSend}>Cadastrar</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );
@@ -209,14 +217,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 50,
   },
-  ContainerBackground: {
+  containerBackground: {
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 8,
     paddingHorizontal: 10,
     height: 56,
-    marginVertical: 10,
-
+    marginBottom: 20,
     shadowColor: "#7F5DF0",
     shadowOffset: {
       width: 0,
@@ -227,7 +234,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     backgroundColor: "#ffffff",
   },
-
   formTextContainer: {
     marginVertical: 15,
   },
@@ -246,10 +252,42 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.GRAY,
   },
-
   categoryContainer: {
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center",
-    gap: 12,
+  },
+  categoryButton: {
+    backgroundColor: theme.Colors.GREEN,
+    borderRadius: 50,
+    padding: 5,
+    margin: 5,
+  },
+  selectedCategory: {
+    flexDirection: "row",
+    gap: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.Colors.BLUE,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 1,
+    margin: 2,
+  },
+  categoryText: {
+    fontSize: 14,
+    color: theme.Colors.PRIMARY,
+  },
+  containerSend: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: theme.Colors.MATTE_BLUE,
+    marginTop: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  textSend: {
+    fontFamily: theme.fontFamily.subtitle,
+    color: theme.Colors.GREEN,
   },
 });

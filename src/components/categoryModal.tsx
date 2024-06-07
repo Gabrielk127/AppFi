@@ -1,4 +1,3 @@
-// CategoryModal.tsx
 import React, { useState } from "react";
 import {
   Modal,
@@ -22,20 +21,36 @@ interface CategoryModalProps {
   categories: Category[];
   visible: boolean;
   onClose: () => void;
-  onSelectCategory: (category: Category) => void;
+  onSelectCategories: (categories: Category[]) => void;
 }
 
 const CategoryModal: React.FC<CategoryModalProps> = ({
   categories,
   visible,
   onClose,
-  onSelectCategory,
+  onSelectCategories,
 }) => {
   const [searchText, setSearchText] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
   const filteredCategories = categories.filter((category) =>
     category.name.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  const handleCategoryPress = (category: Category) => {
+    if (selectedCategories.some((selected) => selected.id === category.id)) {
+      setSelectedCategories((prevSelected) =>
+        prevSelected.filter((item) => item.id !== category.id)
+      );
+    } else {
+      setSelectedCategories((prevSelected) => [...prevSelected, category]);
+    }
+  };
+
+  const handleApplyPress = () => {
+    onSelectCategories(selectedCategories);
+    onClose();
+  };
 
   return (
     <Modal
@@ -70,8 +85,13 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity
-                style={styles.categoryItem}
-                onPress={() => onSelectCategory(item)}
+                style={[
+                  styles.categoryItem,
+                  selectedCategories.some(
+                    (selected) => selected.id === item.id
+                  ) && styles.selectedCategory,
+                ]}
+                onPress={() => handleCategoryPress(item)}
               >
                 <MaterialIcons
                   name={item.icon}
@@ -82,6 +102,12 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
               </TouchableOpacity>
             )}
           />
+          <TouchableOpacity
+            style={styles.applyButton}
+            onPress={handleApplyPress}
+          >
+            <Text style={styles.applyButtonText}>Aplicar</Text>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </Modal>
@@ -135,10 +161,25 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: theme.Colors.GOLDEN,
   },
+  selectedCategory: {
+    backgroundColor: theme.Colors.GOLDEN,
+  },
   categoryText: {
     fontSize: 18,
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.PRIMARY,
+  },
+  applyButton: {
+    backgroundColor: theme.Colors.PRIMARY,
+    borderRadius: 20,
+    paddingVertical: 10,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  applyButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontFamily: theme.fontFamily.body,
   },
 });
 
