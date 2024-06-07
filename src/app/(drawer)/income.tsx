@@ -39,7 +39,7 @@ export default function Income() {
   const [descIncome, setDescIncome] = useState<string>("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
-  const [incomeValue, setIncomeValue] = useState<string>("0.00");
+  const [incomeValue, setIncomeValue] = useState<string>("R$0.00");
   const [isEditingValue, setIsEditingValue] = useState(false);
 
   const handleCategoryPress = (categories: Category[]) => {

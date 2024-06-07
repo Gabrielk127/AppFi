@@ -1,17 +1,15 @@
-import { Avatar } from "@/components/avatar";
-import CustomProgressBar from "@/components/customProgressBar";
-import { MenuButton } from "@/components/menu-button";
-import { theme } from "@/theme";
-import { Link } from "expo-router";
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import CustomBackground from "@/components/customBackground";
+import { MenuButton } from "@/components/menu-button";
+import { theme } from "@/theme";
+import CustomProgressBar from "@/components/customProgressBar";
 import GoalsCard from "@/components/goalsCard";
 import CustomStatement from "@/components/customStatement";
 
 export default function Home() {
-  const expense = "1000";
+  const expense = "250";
   const expenseNumber = Number(expense);
 
   const revenue = "1235";
@@ -19,8 +17,25 @@ export default function Home() {
 
   const balance = String(revenueNumber - expenseNumber);
 
+  const [goals, setGoals] = useState([
+    {
+      id: 1,
+      date: "22/12/2024",
+      title: "Comprar Carro",
+      accumulated: 2500,
+      goal: 45000,
+    },
+    {
+      id: 2,
+      date: "22/12/2024",
+      title: "Comprar Casa",
+      accumulated: 5000,
+      goal: 100000,
+    },
+  ]);
+
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView nestedScrollEnabled style={styles.container}>
       <LinearGradient
         style={styles.gradient}
         colors={[theme.Colors.BLUE, theme.Colors.BLACK]}
@@ -88,33 +103,24 @@ export default function Home() {
       <View style={styles.contentStyle}>
         <Text style={styles.goalTitle}>Resumo Objetivos</Text>
         <ScrollView horizontal style={styles.scrollStyle}>
-          <GoalsCard
-            date="22/12/2024"
-            title="Comprar Carro"
-            accumulated={2500}
-            goal={45000}
-          />
-          <GoalsCard
-            date="22/12/2024"
-            title="Comprar Carro"
-            accumulated={2500}
-            goal={45000}
-          />
-          <GoalsCard
-            date="22/12/2024"
-            title="Comprar Carro"
-            accumulated={2500}
-            goal={45000}
-          />
+          {goals.map((goal) => (
+            <GoalsCard
+              key={goal.id}
+              date={goal.date}
+              title={goal.title}
+              accumulated={goal.accumulated}
+              goal={goal.goal}
+            />
+          ))}
         </ScrollView>
         <View>
           <Text style={[styles.goalTitle, { paddingBottom: 20 }]}>
             Transações
           </Text>
-          <CustomStatement />
+          {/* <CustomStatement /> */}
         </View>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
