@@ -162,7 +162,9 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.Colors.GOLDEN,
   },
   selectedCategory: {
-    backgroundColor: theme.Colors.GOLDEN,
+    backgroundColor: theme.Colors.GREEN,
+    borderRadius: 20,
+    margin: 4,
   },
   categoryText: {
     fontSize: 18,
@@ -170,14 +172,14 @@ const styles = StyleSheet.create({
     color: theme.Colors.PRIMARY,
   },
   applyButton: {
-    backgroundColor: theme.Colors.PRIMARY,
+    backgroundColor: theme.Colors.MATTE_BLUE,
     borderRadius: 20,
     paddingVertical: 10,
     alignItems: "center",
     marginTop: 20,
   },
   applyButtonText: {
-    color: "#fff",
+    color: theme.Colors.PRIMARY,
     fontSize: 16,
     fontFamily: theme.fontFamily.body,
   },

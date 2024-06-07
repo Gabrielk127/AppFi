@@ -1,7 +1,6 @@
 import { theme } from "@/theme";
 import { LinearGradient } from "expo-linear-gradient";
 import {
-  Button,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -13,6 +12,8 @@ import { useState } from "react";
 import CustomInput from "@/components/customInput";
 import CategoryModal from "@/components/categoryModal";
 import DatePicker from "@/components/datePicker";
+import { TextInputMask } from "react-native-masked-text";
+import { Link } from "expo-router";
 
 interface Category {
   id: number;
@@ -32,23 +33,38 @@ const categories: Category[] = [
 ];
 
 export default function Income() {
+  const type = "income";
   const [date, setDate] = useState<Date>(new Date());
   const [titleIncome, setTitleIncome] = useState<string>("");
-  const [descIcome, setDescIncome] = useState<string>("");
+  const [descIncome, setDescIncome] = useState<string>("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  const [incomeValue, setIncomeValue] = useState<string>("0.00");
+  const [isEditingValue, setIsEditingValue] = useState(false);
 
   const handleCategoryPress = (categories: Category[]) => {
     setSelectedCategories(categories);
     setModalVisible(false);
   };
 
+  const handleGoBackAndClearForm = () => {
+    setDate(new Date());
+    setTitleIncome("");
+    setDescIncome("");
+    setSelectedCategories([]);
+    setIncomeValue("0.00");
+    setIsEditingValue(false);
+  };
+
   const handleSendData = async () => {
+    handleGoBackAndClearForm();
     const data = {
       date,
       titleIncome,
-      descIcome,
+      descIncome,
       selectedCategories,
+      incomeValue,
+      type,
     };
 
     console.log(data);
@@ -80,18 +96,40 @@ export default function Income() {
         colors={[theme.Colors.BLUE, theme.Colors.BLACK]}
       >
         <View style={styles.containerTitle}>
-          <MaterialIcons
-            name="arrow-back"
-            size={26}
-            color={theme.Colors.PRIMARY}
-          />
+          <Link href={"/"}>
+            <MaterialIcons
+              name="arrow-back"
+              size={26}
+              color={theme.Colors.PRIMARY}
+            />
+          </Link>
           <Text style={styles.textTitle}>Receita</Text>
         </View>
 
         <View style={styles.containerIncome}>
           <View style={styles.containerTextIncome}>
             <Text style={styles.textIncome}>Valor da receita</Text>
-            <Text style={styles.textValueIncome}>R$ 0,00</Text>
+            {isEditingValue ? (
+              <TextInputMask
+                style={styles.textValueIncome}
+                type={"money"}
+                options={{
+                  precision: 2,
+                  separator: ",",
+                  delimiter: ".",
+                  unit: "R$",
+                  suffixUnit: "",
+                }}
+                value={incomeValue}
+                onChangeText={setIncomeValue}
+                onBlur={() => setIsEditingValue(false)}
+                autoFocus={true}
+              />
+            ) : (
+              <TouchableOpacity onPress={() => setIsEditingValue(true)}>
+                <Text style={styles.textValueIncome}>{incomeValue}</Text>
+              </TouchableOpacity>
+            )}
           </View>
           <Text style={styles.typeCoin}>BRL</Text>
         </View>
@@ -113,7 +151,7 @@ export default function Income() {
           <CustomInput
             icon="subtitles"
             placeholder="Pagamento"
-            value={descIcome}
+            value={descIncome}
             onChangeText={setDescIncome}
           />
         </View>
@@ -155,9 +193,14 @@ export default function Income() {
           onSelectCategories={handleCategoryPress}
         />
 
-        <TouchableOpacity style={styles.containerSend} onPress={handleSendData}>
-          <Text style={styles.textSend}>Cadastrar</Text>
-        </TouchableOpacity>
+        <Link href={"/"} asChild>
+          <TouchableOpacity
+            style={styles.containerSend}
+            onPress={handleSendData}
+          >
+            <Text style={styles.textSend}>Cadastrar</Text>
+          </TouchableOpacity>
+        </Link>
       </SafeAreaView>
     </View>
   );
