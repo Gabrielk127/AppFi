@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { theme } from "@/theme";
 
 interface DatePickerProps {
@@ -21,23 +27,16 @@ const DatePicker: React.FC<DatePickerProps> = ({ date, onDateChange }) => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (selectedDate: Date) => {
-    onDateChange(selectedDate);
+  const handleConfirm = (event: any, selectedDate?: Date) => {
     hideDatePicker();
+    if (selectedDate) {
+      onDateChange(selectedDate);
+    }
   };
 
   return (
     <>
       <TouchableOpacity onPress={showDatePicker}>
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-          display="inline"
-          confirmTextIOS="Confirm"
-          cancelTextIOS="Cancel"
-        />
         <View style={[styles.dateTextContainer, styles.containerBackground]}>
           <MaterialIcons
             name="calendar-month"
@@ -47,6 +46,15 @@ const DatePicker: React.FC<DatePickerProps> = ({ date, onDateChange }) => {
           <Text style={styles.dateText}>{date.toDateString()}</Text>
         </View>
       </TouchableOpacity>
+      {isDatePickerVisible && (
+        <DateTimePicker
+          value={date}
+          mode="date"
+          display={Platform.OS === "ios" ? "inline" : "default"}
+          onChange={handleConfirm}
+          onTouchCancel={hideDatePicker}
+        />
+      )}
     </>
   );
 };

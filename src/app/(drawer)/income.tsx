@@ -15,35 +15,22 @@ import DatePicker from "@/components/datePicker";
 import { TextInputMask } from "react-native-masked-text";
 import { Link } from "expo-router";
 
-interface Category {
-  id: number;
-  name: string;
-  icon?: keyof typeof MaterialIcons.glyphMap;
-}
-
-const categories: Category[] = [
-  { id: 1, name: "Investimento", icon: "assessment" },
-  { id: 2, name: "Outros", icon: "assignment" },
-  { id: 3, name: "Presente", icon: "card-giftcard" },
-  { id: 4, name: "Prêmio", icon: "card-membership" },
-  { id: 5, name: "Salário", icon: "card-travel" },
-  { id: 6, name: "Salário", icon: "card-travel" },
-  { id: 7, name: "Salário", icon: "card-travel" },
-  { id: 8, name: "Salário", icon: "card-travel" },
-];
-
 export default function Income() {
   const type = "income";
   const [date, setDate] = useState<Date>(new Date());
   const [titleIncome, setTitleIncome] = useState<string>("");
   const [descIncome, setDescIncome] = useState<string>("");
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [incomeValue, setIncomeValue] = useState<string>("R$0.00");
   const [isEditingValue, setIsEditingValue] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(
+    null
+  );
 
-  const handleCategoryPress = (categories: Category[]) => {
-    setSelectedCategories(categories);
+  const handleApply = (category: string, subcategory: string) => {
+    setSelectedCategory(category);
+    setSelectedSubcategory(subcategory);
     setModalVisible(false);
   };
 
@@ -51,7 +38,8 @@ export default function Income() {
     setDate(new Date());
     setTitleIncome("");
     setDescIncome("");
-    setSelectedCategories([]);
+    setSelectedCategory("");
+    setSelectedSubcategory("");
     setIncomeValue("0.00");
     setIsEditingValue(false);
   };
@@ -62,7 +50,8 @@ export default function Income() {
       date,
       titleIncome,
       descIncome,
-      selectedCategories,
+      selectedCategory,
+      selectedSubcategory,
       incomeValue,
       type,
     };
@@ -140,7 +129,7 @@ export default function Income() {
           <Text style={styles.labelText}>Título</Text>
           <CustomInput
             icon="title"
-            placeholder="Salário..."
+            placeholder="ex: Salário..."
             value={titleIncome}
             onChangeText={setTitleIncome}
           />
@@ -150,7 +139,7 @@ export default function Income() {
           <Text style={styles.labelText}>Descrição</Text>
           <CustomInput
             icon="subtitles"
-            placeholder="Pagamento"
+            placeholder="ex: Pagamento"
             value={descIncome}
             onChangeText={setDescIncome}
           />
@@ -160,38 +149,30 @@ export default function Income() {
         <DatePicker date={date} onDateChange={setDate} />
 
         <Text style={styles.labelText}>Categorias</Text>
-        <SafeAreaView></SafeAreaView>
-        <View
-          style={[
-            styles.categoryContainer,
-            styles.containerBackground,
-            { height: 100, padding: 20 },
-          ]}
-        >
-          {selectedCategories.map((category) => (
-            <View key={category.id} style={styles.selectedCategory}>
-              <MaterialIcons
-                name={category.icon}
-                size={24}
-                color={theme.Colors.GOLDEN}
-              />
-              <Text style={styles.categoryText}>{category.name}</Text>
-            </View>
-          ))}
-          <TouchableOpacity
-            style={styles.categoryButton}
-            onPress={() => setModalVisible(true)}
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <View
+            style={[
+              styles.containerBackground,
+              { height: 100, justifyContent: "space-between" },
+            ]}
           >
-            <MaterialIcons name="add" size={24} color={theme.Colors.PRIMARY} />
-          </TouchableOpacity>
-        </View>
+            <View style={styles.containerCategory}>
+              <Text style={styles.textCategory}>
+                Categoria: {selectedCategory}
+              </Text>
+              <Text style={styles.textCategory}>
+                Subcategoria: {selectedSubcategory}
+              </Text>
+            </View>
+            <MaterialIcons name="add" size={28} color={theme.Colors.GRAY} />
 
-        <CategoryModal
-          categories={categories}
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          onSelectCategories={handleCategoryPress}
-        />
+            <CategoryModal
+              visible={modalVisible}
+              onClose={() => setModalVisible(false)}
+              onApply={handleApply}
+            />
+          </View>
+        </TouchableOpacity>
 
         <Link href={"/"} asChild>
           <TouchableOpacity
@@ -295,32 +276,15 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.GRAY,
   },
-  categoryContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
+  containerCategory: {
+    gap: 5,
   },
-  categoryButton: {
-    backgroundColor: theme.Colors.GREEN,
-    borderRadius: 50,
-    padding: 5,
-    margin: 5,
+  textCategory: {
+    fontFamily: theme.fontFamily.body,
+    color: theme.Colors.GRAY,
+    fontSize: 12,
   },
-  selectedCategory: {
-    flexDirection: "row",
-    gap: 2,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: theme.Colors.BLUE,
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 1,
-    margin: 2,
-  },
-  categoryText: {
-    fontSize: 14,
-    color: theme.Colors.PRIMARY,
-  },
+
   containerSend: {
     justifyContent: "center",
     alignItems: "center",

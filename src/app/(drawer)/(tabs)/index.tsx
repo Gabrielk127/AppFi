@@ -7,6 +7,7 @@ import { theme } from "@/theme";
 import CustomProgressBar from "@/components/customProgressBar";
 import GoalsCard from "@/components/goalsCard";
 import CustomStatement from "@/components/customStatement";
+import { Link } from "expo-router";
 
 export default function Home() {
   const expense = "250";
@@ -117,6 +118,10 @@ export default function Home() {
           <Text style={[styles.goalTitle, { paddingBottom: 20 }]}>
             Transações
           </Text>
+
+          <Link href={"oneScreen"}>
+            <Text>Login</Text>
+          </Link>
           {/* <CustomStatement /> */}
         </View>
       </View>

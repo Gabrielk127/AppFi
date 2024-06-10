@@ -1,115 +1,155 @@
+import { theme } from "@/theme";
 import React, { useState } from "react";
 import {
-  Modal,
-  FlatList,
-  TouchableOpacity,
-  Text,
   StyleSheet,
+  Text,
   View,
+  Modal,
+  Button,
+  TouchableOpacity,
+  FlatList,
   TextInput,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import { theme } from "@/theme";
-
-interface Category {
-  id: number;
-  name: string;
-  icon?: keyof typeof MaterialIcons.glyphMap;
-}
 
 interface CategoryModalProps {
-  categories: Category[];
   visible: boolean;
   onClose: () => void;
-  onSelectCategories: (categories: Category[]) => void;
+  onApply: (category: string, subcategory: string) => void;
 }
 
+const categories = [
+  {
+    id: "1",
+    name: "Trânsito",
+    subcategories: ["Combústivel", "Mecânico", "pedágio"],
+  },
+  {
+    id: "2",
+    name: "Casa",
+    subcategories: ["Conta de luz", "Conta de água"],
+  },
+  {
+    id: "3",
+    name: "Lazer",
+    subcategories: ["bares", "Academia", "Sorveteria"],
+  },
+];
+
 const CategoryModal: React.FC<CategoryModalProps> = ({
-  categories,
   visible,
   onClose,
-  onSelectCategories,
+  onApply,
 }) => {
-  const [searchText, setSearchText] = useState("");
-  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
-
-  const filteredCategories = categories.filter((category) =>
-    category.name.toLowerCase().includes(searchText.toLowerCase())
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(
+    null
   );
+  const [searchText, setSearchText] = useState<string>("");
 
-  const handleCategoryPress = (category: Category) => {
-    if (selectedCategories.some((selected) => selected.id === category.id)) {
-      setSelectedCategories((prevSelected) =>
-        prevSelected.filter((item) => item.id !== category.id)
-      );
+  const handleCategoryToggle = (category: string) => {
+    if (expandedCategory === category) {
+      setExpandedCategory(null);
     } else {
-      setSelectedCategories((prevSelected) => [...prevSelected, category]);
+      setExpandedCategory(category);
+    }
+    setSelectedCategory(category);
+    setSelectedSubcategory(null);
+  };
+
+  const handleSubcategorySelect = (subcategory: string) => {
+    setSelectedSubcategory(subcategory);
+  };
+
+  const handleApply = () => {
+    if (selectedCategory && selectedSubcategory) {
+      onApply(selectedCategory, selectedSubcategory);
     }
   };
 
-  const handleApplyPress = () => {
-    onSelectCategories(selectedCategories);
-    onClose();
-  };
+  const filteredCategories = categories.filter(
+    (category) =>
+      category.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      category.subcategories.some((subcategory) =>
+        subcategory.toLowerCase().includes(searchText.toLowerCase())
+      )
+  );
 
   return (
     <Modal
+      visible={visible}
       animationType="slide"
       transparent={true}
-      visible={visible}
       onRequestClose={onClose}
     >
-      <TouchableOpacity
-        style={styles.modalOverlay}
-        activeOpacity={1}
-        onPressOut={onClose}
-      >
-        <View style={styles.modalContent}>
-          <View style={styles.searchContainer}>
-            <MaterialIcons
-              name="search"
-              size={24}
-              color={theme.Colors.GRAY}
-              style={styles.searchIcon}
-            />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Pesquisar Categoria"
-              placeholderTextColor={theme.Colors.GRAY}
-              value={searchText}
-              onChangeText={(text) => setSearchText(text)}
-            />
-          </View>
+      <View style={styles.modalOverlay}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Selecione uma Categoria</Text>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Pesquisar..."
+            placeholderTextColor={theme.Colors.GREEN}
+            value={searchText}
+            onChangeText={setSearchText}
+          />
           <FlatList
             data={filteredCategories}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <TouchableOpacity
-                style={[
-                  styles.categoryItem,
-                  selectedCategories.some(
-                    (selected) => selected.id === item.id
-                  ) && styles.selectedCategory,
-                ]}
-                onPress={() => handleCategoryPress(item)}
-              >
-                <MaterialIcons
-                  name={item.icon}
-                  size={24}
-                  color={theme.Colors.GOLDEN}
-                />
-                <Text style={styles.categoryText}>{item.name}</Text>
-              </TouchableOpacity>
+              <View>
+                <TouchableOpacity
+                  onPress={() => handleCategoryToggle(item.name)}
+                  style={
+                    selectedCategory === item.name
+                      ? styles.selectedCategory
+                      : styles.category
+                  }
+                >
+                  <Text style={styles.textCategory}>{item.name}</Text>
+                </TouchableOpacity>
+                {expandedCategory === item.name && (
+                  <FlatList
+                    data={item.subcategories.filter((subcategory) =>
+                      subcategory
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase())
+                    )}
+                    keyExtractor={(subcategory) => subcategory}
+                    renderItem={({ item: subcategory }) => (
+                      <TouchableOpacity
+                        onPress={() => handleSubcategorySelect(subcategory)}
+                        style={
+                          selectedSubcategory === subcategory
+                            ? styles.selectedSubcategory
+                            : styles.subcategory
+                        }
+                      >
+                        <Text style={styles.textCategory}>{subcategory}</Text>
+                        <View
+                          style={{
+                            marginVertical: 10,
+                            height: 1,
+                            width: "100%",
+                            backgroundColor: theme.Colors.MATTE_BLUE,
+                          }}
+                        />
+                      </TouchableOpacity>
+                    )}
+                  />
+                )}
+              </View>
             )}
           />
-          <TouchableOpacity
-            style={styles.applyButton}
-            onPress={handleApplyPress}
-          >
-            <Text style={styles.applyButtonText}>Aplicar</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonStyle} onPress={onClose}>
+              <Text style={styles.buttonTextStyle}>Cancelar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonStyle} onPress={handleApply}>
+              <Text style={styles.buttonTextStyle}>Aplicar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </TouchableOpacity>
+      </View>
     </Modal>
   );
 };
@@ -120,68 +160,78 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
-  modalContent: {
-    height: "50%",
+  modalView: {
+    height: "70%",
     backgroundColor: theme.Colors.BLUE,
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 35,
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
   },
-  searchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: theme.Colors.GOLDEN,
-    borderWidth: 1,
-    borderRadius: 20,
-    paddingHorizontal: 10,
+  modalText: {
+    color: theme.Colors.PRIMARY,
+    fontFamily: theme.fontFamily.body,
     marginBottom: 20,
-  },
-  searchIcon: {
-    marginRight: 10,
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   searchInput: {
-    flex: 1,
     height: 40,
+    borderColor: theme.Colors.MATTE_BLUE,
     color: theme.Colors.PRIMARY,
-    fontFamily: theme.fontFamily.body,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 50,
+    width: "100%",
   },
-  categoryItem: {
-    flexDirection: "row",
-    gap: 20,
-    alignItems: "center",
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.Colors.GOLDEN,
+  textCategory: {
+    fontFamily: theme.fontFamily.body,
+    color: theme.Colors.PRIMARY,
+  },
+  category: {
+    padding: 10,
+    fontSize: 16,
   },
   selectedCategory: {
+    padding: 10,
+    fontSize: 16,
     backgroundColor: theme.Colors.GREEN,
-    borderRadius: 20,
-    margin: 4,
-  },
-  categoryText: {
-    fontSize: 18,
-    fontFamily: theme.fontFamily.body,
+    borderRadius: 5,
     color: theme.Colors.PRIMARY,
   },
-  applyButton: {
+  subcategory: {
+    padding: 10,
+    fontSize: 14,
+    color: theme.Colors.PRIMARY,
+    paddingLeft: 20,
+  },
+  selectedSubcategory: {
+    padding: 10,
+    fontSize: 14,
+    color: theme.Colors.PRIMARY,
+    borderRadius: 5,
+    paddingLeft: 20,
     backgroundColor: theme.Colors.MATTE_BLUE,
-    borderRadius: 20,
-    paddingVertical: 10,
-    alignItems: "center",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 20,
   },
-  applyButtonText: {
-    color: theme.Colors.PRIMARY,
-    fontSize: 16,
+  buttonStyle: {
+    backgroundColor: theme.Colors.MATTE_BLUE,
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonTextStyle: {
     fontFamily: theme.fontFamily.body,
+    color: theme.Colors.PRIMARY,
   },
 });
 
