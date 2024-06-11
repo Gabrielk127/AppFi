@@ -29,4 +29,18 @@ export const GOALS: Goal[] = [
     accumulated: 900,
     goal: 1000,
   },
+  {
+    id: 4,
+    date: "22/12/2024",
+    title: "jOGO DO BICHO",
+    accumulated: 9000,
+    goal: 1000,
+  },
+  {
+    id: 5,
+    date: "22/12/2024",
+    title: "jOGO DO BICHO",
+    accumulated: 9000,
+    goal: 1000,
+  },
 ];

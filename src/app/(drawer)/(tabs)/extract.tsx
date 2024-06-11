@@ -17,7 +17,6 @@ export default function Extract() {
           <CustomStatement />
         </SafeAreaView>
       </View>
-      <Text>Extract</Text>
     </View>
   );
 }

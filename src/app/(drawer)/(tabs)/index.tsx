@@ -19,8 +19,6 @@ export default function Home() {
 
   const balance = String(revenueNumber - expenseNumber);
 
-  const [goalsState, setGoals] = useState(GOALS);
-
   return (
     <ScrollView nestedScrollEnabled style={styles.container}>
       <LinearGradient
@@ -88,9 +86,13 @@ export default function Home() {
         </View>
       </LinearGradient>
       <View style={styles.contentStyle}>
-        <Text style={[styles.goalTitle, { marginTop: 20 }]}>
-          Gráfico saldo mensal
-        </Text>
+        <View style={styles.containerText}>
+          <Text style={[styles.goalTitle, { marginTop: 20 }]}>
+            Gráfico saldo mensal
+          </Text>
+
+          <Text style={styles.moreStyle}>Ver mais</Text>
+        </View>
 
         <View
           style={{
@@ -102,7 +104,12 @@ export default function Home() {
         >
           <AreaGraph />
         </View>
-        <Text style={styles.goalTitle}>Resumo Objetivos</Text>
+        <View style={styles.containerText}>
+          <Text style={styles.goalTitle}>Resumo Objetivos</Text>
+          <Link href="goals">
+            <Text style={styles.moreStyle}>Ver mais</Text>
+          </Link>
+        </View>
         <ScrollView horizontal style={styles.scrollStyle}>
           {GOALS.map((goal) => (
             <GoalsCard
@@ -208,10 +215,20 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   goalTitle: {
-    paddingTop: 30,
-    paddingLeft: 20,
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.GOLDEN,
     fontSize: 16,
+  },
+  moreStyle: {
+    fontSize: 14,
+    fontFamily: theme.fontFamily.light,
+    color: theme.Colors.BLUE,
+  },
+  containerText: {
+    paddingTop: 30,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
   },
 });
