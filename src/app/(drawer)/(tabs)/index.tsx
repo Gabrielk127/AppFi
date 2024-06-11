@@ -8,7 +8,8 @@ import CustomProgressBar from "@/components/customProgressBar";
 import GoalsCard from "@/components/goalsCard";
 import CustomStatement from "@/components/customStatement";
 import { Link } from "expo-router";
-
+import AreaGraph from "@/components/graphs/areaGraph";
+import { GOALS } from "@/api/goalsData";
 export default function Home() {
   const expense = "250";
   const expenseNumber = Number(expense);
@@ -18,22 +19,7 @@ export default function Home() {
 
   const balance = String(revenueNumber - expenseNumber);
 
-  const [goals, setGoals] = useState([
-    {
-      id: 1,
-      date: "22/12/2024",
-      title: "Comprar Carro",
-      accumulated: 2500,
-      goal: 45000,
-    },
-    {
-      id: 2,
-      date: "22/12/2024",
-      title: "Comprar Casa",
-      accumulated: 5000,
-      goal: 100000,
-    },
-  ]);
+  const [goalsState, setGoals] = useState(GOALS);
 
   return (
     <ScrollView nestedScrollEnabled style={styles.container}>
@@ -102,9 +88,23 @@ export default function Home() {
         </View>
       </LinearGradient>
       <View style={styles.contentStyle}>
+        <Text style={[styles.goalTitle, { marginTop: 20 }]}>
+          Gráfico saldo mensal
+        </Text>
+
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: 30,
+          }}
+        >
+          <AreaGraph />
+        </View>
         <Text style={styles.goalTitle}>Resumo Objetivos</Text>
         <ScrollView horizontal style={styles.scrollStyle}>
-          {goals.map((goal) => (
+          {GOALS.map((goal) => (
             <GoalsCard
               key={goal.id}
               date={goal.date}
@@ -122,6 +122,7 @@ export default function Home() {
           <Link href={"oneScreen"}>
             <Text>Login</Text>
           </Link>
+
           {/* <CustomStatement /> */}
         </View>
       </View>
