@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   moreStyle: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.BLUE,
   },

@@ -58,6 +58,7 @@ export default function Goals() {
       </LinearGradient>
       <View style={styles.contentStyle}>
         <FlatList
+          style={{}}
           data={GOALS}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
@@ -65,7 +66,7 @@ export default function Goals() {
         />
       </View>
       <View style={styles.containerAdd}>
-        <Link href="movements">
+        <Link href="goalsRegister">
           <MaterialIcons name="add" size={30} color={theme.Colors.PRIMARY} />
         </Link>
       </View>
