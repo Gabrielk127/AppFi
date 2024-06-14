@@ -14,6 +14,7 @@ import CategoryModal from "@/components/categoryModal";
 import DatePicker from "@/components/datePicker";
 import { TextInputMask } from "react-native-masked-text";
 import { Link } from "expo-router";
+import ButtonBack from "@/components/buttonBack";
 
 export default function Income() {
   const type = "income";
@@ -85,13 +86,7 @@ export default function Income() {
         colors={[theme.Colors.BLUE, theme.Colors.BLACK]}
       >
         <View style={styles.containerTitle}>
-          <Link href={"/"}>
-            <MaterialIcons
-              name="arrow-back"
-              size={26}
-              color={theme.Colors.PRIMARY}
-            />
-          </Link>
+          <ButtonBack />
           <Text style={styles.textTitle}>Receita</Text>
         </View>
 

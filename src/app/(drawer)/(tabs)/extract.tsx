@@ -1,3 +1,4 @@
+import ButtonBack from "@/components/buttonBack";
 import CustomStatement from "@/components/customStatement";
 import { theme } from "@/theme";
 import { LinearGradient } from "expo-linear-gradient";
@@ -10,7 +11,10 @@ export default function Extract() {
         style={styles.gradient}
         colors={[theme.Colors.BLUE, theme.Colors.BLACK]}
       >
-        <Text style={styles.textExtract}>Extrato</Text>
+        <View style={styles.containerTitle}>
+          <ButtonBack />
+          <Text style={styles.textExtract}>Extrato</Text>
+        </View>
       </LinearGradient>
       <View style={styles.contentStyle}>
         <SafeAreaView style={{ flex: 1 }}>
@@ -27,8 +31,6 @@ const styles = StyleSheet.create({
   },
   gradient: {
     height: 200,
-    justifyContent: "center",
-    alignItems: "center",
   },
   contentStyle: {
     flex: 1,
@@ -39,9 +41,17 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     height: "100%",
   },
+  containerTitle: {
+    flexDirection: "row",
+    marginTop: 40,
+    marginLeft: 30,
+    gap: 25,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
   textExtract: {
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.PRIMARY,
-    fontSize: 20,
+    fontSize: 18,
   },
 });
