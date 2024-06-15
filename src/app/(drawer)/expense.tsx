@@ -57,7 +57,7 @@ export default function Expense() {
       type,
     };
 
-    console.log(data);
+    // console.log(data);
 
     //   try {
     //     const response = await fetch("https://sua-api.com/endpoint", {

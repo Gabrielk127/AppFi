@@ -6,23 +6,34 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Modal,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TextInputMask } from "react-native-masked-text";
 import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+
 import { theme } from "@/theme";
 import CustomInput from "@/components/customInput";
 import DatePicker from "@/components/datePicker";
 import ButtonBack from "@/components/buttonBack";
 
 export default function GoalsRegister() {
+  const navigation = useNavigation();
+
   const [date, setDate] = useState<Date>(new Date());
   const [titleGoal, setTitleGoal] = useState<string>("");
   const [descGoal, setDescGoal] = useState<string>("");
   const [goalValue, setGoalValue] = useState<string>("R$0.00");
-  const [accumlatedValue, setAccumulatedValue] = useState<string>("");
+  const [accumulatedValue, setAccumulatedValue] = useState<string>("");
   const [isEditingValue, setIsEditingValue] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+
+  const showErrorModal = () => {
+    setErrorModalVisible(true);
+  };
 
   const handleGoBackAndClearForm = () => {
     setDate(new Date());
@@ -31,16 +42,31 @@ export default function GoalsRegister() {
     setGoalValue("0.00");
     setAccumulatedValue("");
     setIsEditingValue(false);
+    navigation.goBack();
   };
 
   const handleSendData = async () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!titleGoal) newErrors.titleGoal = "O título é obrigatório.";
+    if (!goalValue) newErrors.goalValue = "Preencha todos os campos!";
+    if (!accumulatedValue)
+      newErrors.accumulatedValue = "O valor inicial é obrigatório.";
+    if (!date) newErrors.date = "A data é obrigatória.";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      showErrorModal();
+      return;
+    }
+
     handleGoBackAndClearForm();
     const data = {
       date,
       titleGoal,
       descGoal,
       goalValue,
-      accumlatedValue,
+      accumulatedValue,
     };
 
     console.log(data);
@@ -113,7 +139,7 @@ export default function GoalsRegister() {
               <CustomInput
                 icon="attach-money"
                 placeholder="R$50,00"
-                value={accumlatedValue}
+                value={accumulatedValue}
                 onChangeText={setAccumulatedValue}
                 keyboardType="numeric"
               />
@@ -147,15 +173,40 @@ export default function GoalsRegister() {
             <DatePicker date={date} onDateChange={setDate} />
           </View>
 
-          <Link href={"/"} asChild>
-            <TouchableOpacity
-              style={styles.containerSend}
-              onPress={handleSendData}
-            >
-              <Text style={styles.textSend}>Cadastrar</Text>
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity
+            style={styles.containerSend}
+            onPress={handleSendData}
+          >
+            <Text style={styles.textSend}>Cadastrar</Text>
+          </TouchableOpacity>
         </ScrollView>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={errorModalVisible}
+          onRequestClose={() => {
+            setErrorModalVisible(false);
+          }}
+        >
+          <View style={styles.modalCenteredView}>
+            <View style={styles.modalView}>
+              <Text
+                style={[
+                  styles.modalText,
+                  { fontFamily: theme.fontFamily.heading },
+                ]}
+              >
+                {String(Object.values(errors).join("\n\n"))}
+              </Text>
+              <TouchableOpacity
+                style={styles.modalCloseButton}
+                onPress={() => setErrorModalVisible(false)}
+              >
+                <Text style={styles.ModalCloseButtonText}>Fechar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     </View>
   );
@@ -267,5 +318,27 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flexGrow: 1,
+  },
+  modalCenteredView: {
+    flex: 1,
+    paddingBottom: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalView: {
+    backgroundColor: theme.Colors.RED,
+    padding: 20,
+    borderRadius: 20,
+  },
+  modalText: {
+    color: theme.Colors.BLUE,
+  },
+  modalCloseButton: {
+    marginTop: 20,
+  },
+  ModalCloseButtonText: {
+    fontFamily: theme.fontFamily.light,
+    color: theme.Colors.PRIMARY,
   },
 });
