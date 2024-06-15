@@ -1,12 +1,20 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { MaterialIcons } from "@expo/vector-icons";
 import { GOALS } from "@/api/goalsData";
 import GoalsCard from "@/components/goalsCard";
 import { theme } from "@/theme";
-import { LinearGradient } from "expo-linear-gradient";
-import { Link } from "expo-router";
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import GoalModal from "@/components/modals/goalModal";
 import ButtonBack from "@/components/buttonBack";
-// Definição da interface para o item da lista
+import { Link } from "expo-router";
+
 interface GoalItem {
   id: number;
   date: string;
@@ -21,14 +29,19 @@ export default function Goals() {
     0
   );
   const totalMeta = GOALS.reduce((total, goal) => total + goal.goal, 0);
+
+  const [selectedGoal, setSelectedGoal] = useState<GoalItem | null>(null);
+
   const renderItem = ({ item }: { item: GoalItem }) => (
-    <GoalsCard
-      key={item.id}
-      date={item.date}
-      title={item.title}
-      accumulated={item.accumulated}
-      goal={item.goal}
-    />
+    <TouchableOpacity onPress={() => setSelectedGoal(item)}>
+      <GoalsCard
+        key={item.id}
+        date={item.date}
+        title={item.title}
+        accumulated={item.accumulated}
+        goal={item.goal}
+      />
+    </TouchableOpacity>
   );
 
   return (
@@ -56,6 +69,7 @@ export default function Goals() {
           </View>
         </View>
       </LinearGradient>
+
       <View style={styles.contentStyle}>
         <FlatList
           style={{}}
@@ -70,6 +84,7 @@ export default function Goals() {
           <MaterialIcons name="add" size={30} color={theme.Colors.PRIMARY} />
         </Link>
       </View>
+      <GoalModal goal={selectedGoal} onClose={() => setSelectedGoal(null)} />
     </View>
   );
 }
