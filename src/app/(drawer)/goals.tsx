@@ -76,7 +76,10 @@ export default function Goals() {
           data={GOALS}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ flexGrow: 1 }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            alignItems: "center",
+          }}
         />
       </View>
       <View style={styles.containerAdd}>

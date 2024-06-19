@@ -112,13 +112,21 @@ export default function Home() {
         </View>
         <ScrollView horizontal style={styles.scrollStyle}>
           {GOALS.map((goal) => (
-            <GoalsCard
-              key={goal.id}
-              date={goal.date}
-              title={goal.title}
-              accumulated={goal.accumulated}
-              goal={goal.goal}
-            />
+            <View
+              style={{
+                justifyContent: "center",
+                margin: 1,
+                alignItems: "center",
+              }}
+            >
+              <GoalsCard
+                key={goal.id}
+                date={goal.date}
+                title={goal.title}
+                accumulated={goal.accumulated}
+                goal={goal.goal}
+              />
+            </View>
           ))}
         </ScrollView>
         <View>

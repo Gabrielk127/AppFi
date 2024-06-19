@@ -61,7 +61,7 @@ const GoalsCard: React.FC<GoalsCardProps> = ({
 const styles = StyleSheet.create({
   ViewContainer: {
     width: 350,
-    marginHorizontal: 30,
+    // marginHorizontal: 20,
     marginVertical: 10,
   },
   TextTitle: {
