@@ -112,12 +112,12 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontFamily: theme.fontFamily.heading,
     color: theme.Colors.BLACK,
-    fontSize: 16,
+    fontSize: theme.Fontsize.SmallTitle,
   },
   dateStyle: {
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.GRAY,
-    fontSize: 14,
+    fontSize: theme.Fontsize.BodyPrimary,
   },
   containerGraph: {
     justifyContent: "center",
@@ -126,12 +126,12 @@ const styles = StyleSheet.create({
   resultBalanceStyle: {
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.BLACK,
-    fontSize: 16,
+    fontSize: theme.Fontsize.SmallTitle,
   },
   textData: {
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.BLACK,
-    fontSize: 14,
+    fontSize: theme.Fontsize.BodyPrimary,
   },
   containerText: {
     borderTopLeftRadius: 40,

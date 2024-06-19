@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { MenuButton } from "@/components/menu-button";
+import { MenuButton } from "@/components/buttons/menuButton";
 import { theme } from "@/theme";
-import CustomProgressBar from "@/components/customProgressBar";
-import GoalsCard from "@/components/goalsCard";
-import CustomStatement from "@/components/customStatement";
+import CustomProgressBar from "@/components/graphs/customProgressBar";
+import GoalsCard from "@/components/cards/goalsCard";
+import CustomStatement from "@/components/finances/customStatement";
 import { Link } from "expo-router";
 import AreaGraph from "@/components/graphs/areaGraph";
 import { GOALS } from "@/api/goalsData";
@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
   BalanceTextStyle: {
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.PRIMARY,
-    fontSize: 16,
+    fontSize: theme.Fontsize.SmallTitle,
   },
   BalanceStyle: {
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.PRIMARY,
-    fontSize: 24,
+    fontSize: theme.Fontsize.MediumTitle,
   },
   contentProgressStyle: {
     alignItems: "center",
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   textInfoStyle: {
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.PRIMARY,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
   },
   textInfoIcon: {
     flexDirection: "row",
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   infoTextStyle: {
     fontFamily: theme.fontFamily.subtitle,
-    fontSize: 16,
+    fontSize: theme.Fontsize.SmallTitle,
     marginTop: 5,
   },
   verticalLine: {
@@ -217,10 +217,10 @@ const styles = StyleSheet.create({
   goalTitle: {
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.GOLDEN,
-    fontSize: 16,
+    fontSize: theme.Fontsize.SmallTitle,
   },
   moreStyle: {
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.BLUE,
   },

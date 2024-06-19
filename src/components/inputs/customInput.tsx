@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     color: theme.Colors.PRIMARY_TEXT,
-    fontSize: 16,
+    fontSize: theme.Fontsize.BodyPrimary,
     fontFamily: theme.fontFamily.light,
   },
 });

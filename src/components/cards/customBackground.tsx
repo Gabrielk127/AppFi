@@ -1,5 +1,4 @@
 import { theme } from "@/theme";
-import { LinearGradient } from "expo-linear-gradient";
 import { ReactNode } from "react";
 import { StyleSheet, View, ViewStyle } from "react-native";
 

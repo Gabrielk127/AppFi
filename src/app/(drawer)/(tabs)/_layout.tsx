@@ -9,7 +9,7 @@ import {
   Text,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import CustomModal from "@/components/customModal";
+import CustomModal from "@/components/modals/customModal";
 
 interface CustomTabBarButtonProps {
   children: ReactNode;

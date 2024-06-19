@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: theme.Fontsize.BodyPrimary,
     fontFamily: theme.fontFamily.subtitle,
   },
   icon: {

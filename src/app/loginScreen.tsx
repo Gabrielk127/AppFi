@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { theme } from "@/theme";
-import CustomInput from "@/components/customInput";
-import CustomButton from "@/components/customButtom";
-import AnimationGraph from "@/components/animationGraph";
+import CustomInput from "@/components/inputs/customInput";
+import CustomButton from "@/components/buttons/customButtom";
+import AnimationGraph from "@/components/animations/animationGraph";
 import { Link } from "expo-router";
 
 export default function LoginScreen() {
@@ -36,7 +36,7 @@ export default function LoginScreen() {
         </View>
         <View style={styles.signupContentStyle}>
           <Text style={styles.signupStyle}>Sign In</Text>
-          <Link href={"/"} asChild>
+          <Link href={"/(drawer)"} asChild>
             <CustomButton
               icon="keyboard-double-arrow-right"
               buttonStyle={styles.buttonStyle}
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontFamily: theme.fontFamily.heading,
-    fontSize: 24,
+    fontSize: theme.Fontsize.MediumTitle,
   },
   contentInputStyle: {
     marginTop: 50,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   signupStyle: {
     fontFamily: theme.fontFamily.subtitle,
-    fontSize: 18,
+    fontSize: theme.Fontsize.SmallTitle,
   },
   textContainerStyle: {
     position: "absolute",
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontFamily: theme.fontFamily.light,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
     color: theme.Colors.PRIMARY_TEXT,
   },
   containerSocialMedia: {

@@ -81,12 +81,12 @@ const styles = StyleSheet.create({
     width: 120,
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.BLUE,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
   },
   dateStyle: {
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.MATTE_BLUE,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
   },
   viewSeparate: {
     width: 1,
@@ -100,13 +100,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.MATTE_BLUE,
-    fontSize: 10,
+    fontSize: theme.Fontsize.SmallBody,
   },
   balanceStyle: {
     width: 70,
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.GOLDEN,
-    fontSize: 10,
+    fontSize: theme.Fontsize.SmallBody,
   },
 });
 

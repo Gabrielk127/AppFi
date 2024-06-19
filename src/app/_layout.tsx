@@ -1,6 +1,6 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { Slot } from "expo-router";
+import { Slot, Stack } from "expo-router";
 
 import {
   useFonts,
@@ -24,8 +24,11 @@ export default function Layout() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <Slot />
-    </GestureHandlerRootView>
+    <Stack initialRouteName="oneScreen">
+      <Stack.Screen name="oneScreen" options={{ headerShown: false }} />
+      <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+      <Stack.Screen name="loginScreen" options={{ headerShown: false }} />
+      <Stack.Screen name="registerScreen" options={{ headerShown: false }} />
+    </Stack>
   );
 }

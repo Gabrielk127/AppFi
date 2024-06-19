@@ -1,5 +1,5 @@
-import ButtonBack from "@/components/buttonBack";
-import CustomStatement from "@/components/customStatement";
+import ButtonBack from "@/components/buttons/buttonBack";
+import CustomStatement from "@/components/finances/customStatement";
 import { theme } from "@/theme";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
   textExtract: {
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.PRIMARY,
-    fontSize: 18,
+    fontSize: theme.Fontsize.SmallTitle,
   },
 });

@@ -1,4 +1,4 @@
-import CustomButton from "@/components/customButtom";
+import CustomButton from "@/components/buttons/customButtom";
 import { theme } from "@/theme";
 import {
   Image,
@@ -142,7 +142,7 @@ export default function OneScreen() {
 const styles = StyleSheet.create({
   contentStyle: {
     flex: 1,
-    backgroundColor: theme.Colors.PURPLE_BACKGROUND,
+    backgroundColor: theme.Colors.BLUE,
   },
   imageStyle: {
     marginTop: -30,
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     marginTop: 500,
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.PRIMARY,
-    fontSize: 24,
+    fontSize: theme.Fontsize.MediumTitle,
     width: "80%",
     letterSpacing: 2,
   },
@@ -164,9 +164,9 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     borderWidth: 1,
-    borderColor: theme.Colors.PURPLE_50,
+    borderColor: theme.Colors.GREEN,
 
-    backgroundColor: theme.Colors.PURPLE_600,
+    backgroundColor: theme.Colors.MATTE_BLUE,
   },
   buttonTextStyle: {
     fontFamily: theme.fontFamily.body,
@@ -174,9 +174,9 @@ const styles = StyleSheet.create({
   buttonStyleLogin: {
     marginTop: 20,
     borderWidth: 1,
-    borderColor: theme.Colors.PURPLE_50,
+    borderColor: theme.Colors.GREEN,
 
-    backgroundColor: theme.Colors.PURPLE_600,
+    backgroundColor: theme.Colors.MATTE_BLUE,
   },
   create: {
     color: theme.Colors.ORANGE_100,

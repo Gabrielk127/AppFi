@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import CustomBackground from "./customBackground";
-import CustomProgressBar from "./customProgressBar";
+import CustomBackground from "@/components/cards/customBackground";
+import CustomProgressBar from "../graphs/customProgressBar";
 import { theme } from "@/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   TextTitle: {
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.BLUE,
-    fontSize: 14,
+    fontSize: theme.Fontsize.BodyPrimary,
   },
   containerTitle: {
     marginBottom: 10,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   date: {
     fontFamily: theme.fontFamily.light,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
     color: theme.Colors.GRAY,
   },
   balance: {
@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
   },
   balanceTitle: {
     fontFamily: theme.fontFamily.light,
-    fontSize: 12,
-    color: theme.Colors.BLACK,
+    fontSize: theme.Fontsize.Body,
+    color: theme.Colors.BLUE,
   },
   accumulated: {
     fontFamily: theme.fontFamily.body,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   goalStyle: {
     fontFamily: theme.fontFamily.body,
-    color: theme.Colors.BLACK,
+    color: theme.Colors.BLUE,
   },
 });
 

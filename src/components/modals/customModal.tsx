@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   textStyle: {
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.PRIMARY,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
   },
 });
 

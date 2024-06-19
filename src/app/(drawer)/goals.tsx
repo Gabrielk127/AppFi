@@ -9,11 +9,11 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
 import { GOALS } from "@/api/goalsData";
-import GoalsCard from "@/components/goalsCard";
+import GoalsCard from "@/components/cards/goalsCard";
 import { theme } from "@/theme";
 import GoalModal from "@/components/modals/goalModal";
-import ButtonBack from "@/components/buttonBack";
-import { Link } from "expo-router";
+import ButtonBack from "@/components/buttons/buttonBack";
+import { Link, useRouter } from "expo-router";
 
 interface GoalItem {
   id: number;
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   textGoals: {
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.PRIMARY,
-    fontSize: 18,
+    fontSize: theme.Fontsize.SmallTitle,
   },
   containerTotal: {
     flexDirection: "row",
@@ -129,12 +129,12 @@ const styles = StyleSheet.create({
   textTotal: {
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.PRIMARY,
-    fontSize: 14,
+    fontSize: theme.Fontsize.BodyPrimary,
   },
   textNumberTotal: {
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.GREEN,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
   },
   containerAdd: {
     position: "absolute",

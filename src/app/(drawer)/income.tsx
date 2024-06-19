@@ -9,12 +9,13 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import CustomInput from "@/components/customInput";
-import CategoryModal from "@/components/categoryModal";
+import CustomInput from "@/components/inputs/customInput";
+import CategoryModal from "@/components/modals/categoryModal";
 import DatePicker from "@/components/datePicker";
 import { TextInputMask } from "react-native-masked-text";
-import { Link } from "expo-router";
-import ButtonBack from "@/components/buttonBack";
+import { Link, useRouter } from "expo-router";
+import ButtonBack from "@/components/buttons/buttonBack";
+import ButtonSendForm from "@/components/buttons/buttonSendForm";
 
 export default function Income() {
   const type = "income";
@@ -28,6 +29,11 @@ export default function Income() {
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(
     null
   );
+
+  const router = useRouter();
+  const handleGoBack = () => {
+    router.back();
+  };
 
   const handleApply = (category: string, subcategory: string) => {
     setSelectedCategory(category);
@@ -47,6 +53,7 @@ export default function Income() {
 
   const handleSendData = async () => {
     handleGoBackAndClearForm();
+    handleGoBack();
     const data = {
       date,
       titleIncome,
@@ -169,14 +176,7 @@ export default function Income() {
           </View>
         </TouchableOpacity>
 
-        <Link href={"/"} asChild>
-          <TouchableOpacity
-            style={styles.containerSend}
-            onPress={handleSendData}
-          >
-            <Text style={styles.textSend}>Cadastrar</Text>
-          </TouchableOpacity>
-        </Link>
+        <ButtonSendForm onPress={handleSendData} />
       </SafeAreaView>
     </View>
   );
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   textTitle: {
     fontFamily: theme.fontFamily.subtitle,
     color: theme.Colors.PRIMARY,
-    fontSize: 18,
+    fontSize: theme.Fontsize.SmallTitle,
   },
   containerIncome: {
     flexDirection: "row",
@@ -216,17 +216,17 @@ const styles = StyleSheet.create({
   textIncome: {
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.GRAY,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
   },
   textValueIncome: {
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.PRIMARY,
-    fontSize: 24,
+    fontSize: theme.Fontsize.MediumTitle,
   },
   typeCoin: {
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.GRAY,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
   },
   containerView: {
     height: "100%",
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontFamily: theme.fontFamily.light,
     color: theme.Colors.GRAY,
-    fontSize: 14,
+    fontSize: theme.Fontsize.BodyPrimary,
   },
   dateTextContainer: {
     flexDirection: "row",
@@ -277,19 +277,6 @@ const styles = StyleSheet.create({
   textCategory: {
     fontFamily: theme.fontFamily.body,
     color: theme.Colors.GRAY,
-    fontSize: 12,
-  },
-
-  containerSend: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: theme.Colors.MATTE_BLUE,
-    marginTop: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
-  },
-  textSend: {
-    fontFamily: theme.fontFamily.subtitle,
-    color: theme.Colors.GREEN,
+    fontSize: theme.Fontsize.Body,
   },
 });

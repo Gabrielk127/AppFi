@@ -1,4 +1,4 @@
-import { DrawerContent } from "@/components/drawer-content";
+import { DrawerContent } from "@/components/navigation/drawer-content";
 import { CustomOptions } from "@/types/navigation";
 import { Drawer } from "expo-router/drawer";
 export default function DrawerLayout() {
@@ -13,22 +13,21 @@ export default function DrawerLayout() {
       drawerContent={(props) => <DrawerContent {...props} />}
     >
       <Drawer.Screen
-        name="premium"
-        options={
-          {
-            title: "Torne-se Premium",
-            iconName: "attach-money",
-            isDividir: true,
-          } as CustomOptions
-        }
-      />
-
-      <Drawer.Screen
         name="(tabs)"
         options={
           {
             title: "Home",
             iconName: "home",
+            isDividir: true,
+          } as CustomOptions
+        }
+      />
+      <Drawer.Screen
+        name="premium"
+        options={
+          {
+            title: "Torne-se Premium",
+            iconName: "attach-money",
             isDividir: true,
           } as CustomOptions
         }

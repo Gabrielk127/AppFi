@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.body,
     marginBottom: 20,
     textAlign: "center",
-    fontSize: 18,
+    fontSize: theme.Fontsize.SmallTitle,
     fontWeight: "bold",
   },
   searchInput: {
@@ -196,24 +196,24 @@ const styles = StyleSheet.create({
   },
   category: {
     padding: 10,
-    fontSize: 16,
+    fontSize: theme.Fontsize.BodyPrimary,
   },
   selectedCategory: {
     padding: 10,
-    fontSize: 16,
+    fontSize: theme.Fontsize.BodyPrimary,
     backgroundColor: theme.Colors.GREEN,
     borderRadius: 5,
     color: theme.Colors.PRIMARY,
   },
   subcategory: {
     padding: 10,
-    fontSize: 14,
+    fontSize: theme.Fontsize.BodyPrimary,
     color: theme.Colors.PRIMARY,
     paddingLeft: 20,
   },
   selectedSubcategory: {
     padding: 10,
-    fontSize: 14,
+    fontSize: theme.Fontsize.BodyPrimary,
     color: theme.Colors.PRIMARY,
     borderRadius: 5,
     paddingLeft: 20,

@@ -95,7 +95,9 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontFamily: theme.fontFamily.body,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
+    color: theme.Colors.BLUE,
+
     flex: 1,
   },
   textFocused: {

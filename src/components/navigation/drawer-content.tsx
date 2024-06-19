@@ -1,10 +1,9 @@
 import { StyleSheet, View, Image, ScrollView, Text } from "react-native";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { Colors } from "@/theme/colors";
-import { DrawerButton } from "@/components/drawerButton";
+import { DrawerButton } from "@/components/navigation/drawerButton";
 import { CustomOptions } from "@/types/navigation";
 import { theme } from "@/theme";
-import { Avatar } from "./avatar";
+import { Avatar } from "@/components/user/avatar";
 
 export function DrawerContent(drawerProps: DrawerContentComponentProps) {
   return (
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
   },
   TextLogo: {
     fontFamily: theme.fontFamily.body,
-    fontSize: 12,
+    fontSize: theme.Fontsize.Body,
     overflow: "hidden",
   },
   containerMenu: {
