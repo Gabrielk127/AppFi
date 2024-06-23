@@ -10,6 +10,7 @@ import CustomStatement from "@/components/finances/customStatement";
 import { Link } from "expo-router";
 import AreaGraph from "@/components/graphs/areaGraph";
 import { GOALS } from "@/api/goalsData";
+
 export default function Home() {
   const expense = "250";
   const expenseNumber = Number(expense);
@@ -90,7 +91,6 @@ export default function Home() {
           <Text style={[styles.goalTitle, { marginTop: 20 }]}>
             Gráfico saldo mensal
           </Text>
-
           <Text style={styles.moreStyle}>Ver mais</Text>
         </View>
 
@@ -113,6 +113,7 @@ export default function Home() {
         <ScrollView horizontal style={styles.scrollStyle}>
           {GOALS.map((goal) => (
             <View
+              key={goal.id}
               style={{
                 justifyContent: "center",
                 margin: 1,
@@ -120,7 +121,6 @@ export default function Home() {
               }}
             >
               <GoalsCard
-                key={goal.id}
                 date={goal.date}
                 title={goal.title}
                 accumulated={goal.accumulated}

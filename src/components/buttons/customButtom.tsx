@@ -20,33 +20,40 @@ interface CustomButtonProps {
   iconSize?: number;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({
-  title,
-  onPress,
-  buttonStyle,
-  textStyle,
-  disabled = false,
-  icon,
-  iconColor = theme.Colors.PRIMARY_TEXT,
-  iconSize = 24,
-}) => {
-  return (
-    <TouchableOpacity
-      style={[styles.button, buttonStyle, disabled && styles.buttonDisabled]}
-      onPress={onPress}
-      disabled={disabled}
-    >
-      <MaterialIcons
-        name={icon}
-        size={iconSize}
-        color={iconColor}
-        style={styles.icon}
-      />
-
-      <Text style={[styles.text, textStyle]}>{title}</Text>
-    </TouchableOpacity>
-  );
-};
+const CustomButton = React.forwardRef<TouchableOpacity, CustomButtonProps>(
+  (
+    {
+      title,
+      onPress,
+      buttonStyle,
+      textStyle,
+      disabled = false,
+      icon,
+      iconColor = theme.Colors.PRIMARY_TEXT,
+      iconSize = 24,
+    },
+    ref
+  ) => {
+    return (
+      <TouchableOpacity
+        ref={ref}
+        style={[styles.button, buttonStyle, disabled && styles.buttonDisabled]}
+        onPress={onPress}
+        disabled={disabled}
+      >
+        {icon && (
+          <MaterialIcons
+            name={icon}
+            size={iconSize}
+            color={iconColor}
+            style={styles.icon}
+          />
+        )}
+        {title && <Text style={[styles.text, textStyle]}>{title}</Text>}
+      </TouchableOpacity>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   button: {
@@ -69,6 +76,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     justifyContent: "center",
+    marginRight: 8, // Adicione um pequeno espaçamento entre o ícone e o texto
   },
 });
 
